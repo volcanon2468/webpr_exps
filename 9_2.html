@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Airline Reservation System</title>
+</head>
+<body>
+  <h1>Airline Reservation System</h1>
+  <p>Please choose your seating preference:</p>
+  <button onclick="assignSeat(1)">First Class (Seats 1-5)</button>
+  <button onclick="assignSeat(2)">Economy (Seats 6-10)</button>
+
+  <h2>Boarding Pass</h2>
+  <div id="boarding-pass"></div>
+
+  <script>
+    const seatingChart = Array(10).fill(0);
+
+    function assignSeat(section) {
+      let seatNumber = -1;
+
+      if (section === 1) {
+        seatNumber = findAvailableSeat(0, 4);
+        if (seatNumber === -1) {
+          const acceptEconomy = confirm("First Class is fully booked. Would you like a seat in Economy?");
+          if (acceptEconomy) {
+            assignSeat(2);
+          } else {
+            alert("The next flight leaves in 3 hours.");
+          }
+        } else {
+          seatingChart[seatNumber] = 1;
+          printBoardingPass(seatNumber + 1, "First Class");
+        }
+      } else if (section === 2) {
+        seatNumber = findAvailableSeat(5, 9);
+        if (seatNumber === -1) {
+          const acceptFirstClass = confirm("Economy is fully booked. Would you like a seat in First Class?");
+          if (acceptFirstClass) {
+            assignSeat(1);
+          } else {
+            alert("The next flight leaves in 3 hours.");
+          }
+        } else {
+          seatingChart[seatNumber] = 1;
+          printBoardingPass(seatNumber + 1, "Economy");
+        }
+      }
+    }
+
+    function findAvailableSeat(start, end) {
+      for (let i = start; i <= end; i++) {
+        if (seatingChart[i] === 0) {
+          return i;
+        }
+      }
+      return -1;
+    }
+
+    function printBoardingPass(seatNumber, seatClass) {
+      const passengerName = prompt("Please enter your name:");
+      const boardingPassDiv = document.getElementById("boarding-pass");
+      boardingPassDiv.innerHTML = `
+        <p><strong>Name:</strong> ${passengerName}</p>
+        <p><strong>Seat Number:</strong> ${seatNumber}</p>
+        <p><strong>Class:</strong> ${seatClass}</p>
+      `;
+    }
+  </script>
+</body>
+</html>

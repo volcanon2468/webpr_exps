@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Form Validation</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .error { color: red; font-size: 12px; }
+        .container { width: 50%; margin: auto; padding: 20px; border: 1px solid black; }
+    </style>
+</head>
+<body onload="updateTime()">
+
+<div class="container">
+    <h2>Test JavaScript Form Validation</h2>
+    <div style="text-align: right;"><b>Time:</b> <span id="time"></span></div>
+
+    <form id="myForm">
+        <label>Name*:</label>
+        <input type="text" id="name" maxlength="15">
+        <span class="error" id="nameError"></span><br><br>
+
+        <label>Address:</label>
+        <textarea id="address"></textarea>
+        <span class="error" id="addressError"></span><br><br>
+
+        <label>Zip Code*:</label>
+        <input type="text" id="zip">
+        <span class="error" id="zipError"></span><br><br>
+
+        <label>Country*:</label>
+        <select id="country">
+            <option value="">Please select...</option>
+            <option value="USA">USA</option>
+            <option value="India">India</option>
+        </select>
+        <span class="error" id="countryError"></span><br><br>
+
+        <label>Gender*:</label>
+        <input type="radio" name="gender" value="Male"> Male
+        <input type="radio" name="gender" value="Female"> Female
+        <span class="error" id="genderError"></span><br><br>
+
+        <label>Preferences*:</label>
+        <input type="checkbox" name="preferences" value="Red"> Red
+        <input type="checkbox" name="preferences" value="Green"> Green
+        <input type="checkbox" name="preferences" value="Blue"> Blue
+        <span class="error" id="preferencesError"></span><br><br>
+
+        <label>Phone*:</label>
+        <input type="text" id="phone" maxlength="10">
+        <span class="error" id="phoneError"></span><br><br>
+
+        <label>Email*:</label>
+        <input type="email" id="email">
+        <span class="error" id="emailError"></span><br><br>
+
+        <label>Password* (8-15 characters, must include number & special char):</label>
+        <input type="password" id="password">
+        <span class="error" id="passwordError"></span><br><br>
+
+        <label>Verify Password*:</label>
+        <input type="password" id="confirmPassword">
+        <span class="error" id="confirmPasswordError"></span><br><br>
+
+        <label>PAN No:</label>
+        <input type="text" id="pan">
+        <span class="error" id="panError"></span><br><br>
+
+        <button type="button" onclick="validateForm()">SEND</button>
+        <button type="reset">CLEAR</button>
+        <button type="button" onclick="printForm()">PRINT</button>
+    </form>
+</div>
+
+<script>
+    function updateTime() {
+        setInterval(() => {
+            document.getElementById("time").innerText = new Date().toLocaleTimeString();
+        }, 1000);
+    }
+
+    function validateForm() {
+        let valid = true;
+
+        document.querySelectorAll('.error').forEach(e => e.innerText = "");
+
+        let name = document.getElementById("name").value.trim();
+        if (name === "" || name.length > 15) {
+            document.getElementById("nameError").innerText = "Required (Max 15 chars)";
+            valid = false;
+        }
+
+        let zip = document.getElementById("zip").value.trim();
+        if (!/^\d{5,6}$/.test(zip)) {
+            document.getElementById("zipError").innerText = "Zip must be numeric (5-6 digits)";
+            valid = false;
+        }
+
+        let phone = document.getElementById("phone").value.trim();
+        if (!/^\d{10}$/.test(phone)) {
+            document.getElementById("phoneError").innerText = "Phone must be 10 digits";
+            valid = false;
+        }
+
+        let email = document.getElementById("email").value.trim();
+        if (!/^\S+@\S+\.\S+$/.test(email)) {
+            document.getElementById("emailError").innerText = "Invalid email format";
+            valid = false;
+        }
+
+        let password = document.getElementById("password").value;
+        if (!/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[@#$%^&+=!]).{8,15}$/.test(password)) {
+            document.getElementById("passwordError").innerText = "8-15 chars, number & special char required";
+            valid = false;
+        }
+
+        let confirmPassword = document.getElementById("confirmPassword").value;
+        if (confirmPassword !== password) {
+            document.getElementById("confirmPasswordError").innerText = "Passwords do not match";
+            valid = false;
+        }
+
+        let pan = document.getElementById("pan").value.trim();
+        if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pan)) {
+            document.getElementById("panError").innerText = "Invalid PAN format";
+            valid = false;
+        }
+
+        let country = document.getElementById("country").value;
+        if (country === "") {
+            document.getElementById("countryError").innerText = "Please select a country";
+            valid = false;
+        }
+
+        let gender = document.getElementsByName("gender");
+        if (![...gender].some(g => g.checked)) {
+            document.getElementById("genderError").innerText = "Select gender";
+            valid = false;
+        }
+
+        let preferences = document.getElementsByName("preferences");
+        if (![...preferences].some(p => p.checked)) {
+            document.getElementById("preferencesError").innerText = "Select at least one preference";
+            valid = false;
+        }
+
+        if (!valid) return;
+        alert("Form submitted successfully!");
+    }
+
+    function printForm() {
+        let gender = [...document.getElementsByName("gender")].find(g => g.checked)?.value || "Not selected";
+        let country = document.getElementById("country").value || "Not selected";
+        let preferences = [...document.getElementsByName("preferences")].filter(p => p.checked).map(p => p.value).join(", ") || "None";
+
+        console.log(`Gender: ${gender}`);
+        console.log(`Country: ${country}`);
+        console.log(`Preferences: ${preferences}`);
+        alert(`Gender: ${gender}\nCountry: ${country}\nPreferences: ${preferences}`);
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], select {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>BMI Calculator</h2>
+        <label for="gender">Gender:</label>
+        <select id="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+        <label for="weight">Enter Your Weight (in pounds):</label>
+        <input type="number" id="weight" placeholder="Weight in pounds">
+        <label for="heightFeet">Enter Your Height (feet):</label>
+        <input type="number" id="heightFeet" placeholder="Height in feet">
+        <label for="heightInches">Enter Your Height (inches):</label>
+        <input type="number" id="heightInches" placeholder="Height in inches">
+        <button onclick="calculateBMI()">Calculate</button>
+        <div>
+            <label for="bmi">Your BMI:</label>
+            <input type = "text" id = "bmi" readonly>
+        </div>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            const gender = document.getElementById('gender').value;
+            const weight = parseFloat(document.getElementById('weight').value);
+            const heightFeet = parseFloat(document.getElementById('heightFeet').value);
+            const heightInches = parseFloat(document.getElementById('heightInches').value);
+
+            if (isNaN(weight) || isNaN(heightFeet) || isNaN(heightInches)) {
+                alert("Please enter valid numbers for weight and height.");
+                return;
+            }
+
+            const totalHeightInches = (heightFeet * 12) + heightInches;
+            const bmi = (703 * weight) / (totalHeightInches * totalHeightInches);
+            document.getElementById('bmi').value = bmi.toFixed(2);
+
+            let status = getBMIStatus(bmi, gender);
+            alert("Your BMI is " + bmi.toFixed(2) + ". Status: " + status);
+        }
+
+        function getBMIStatus(bmi, gender) {
+            if (gender === 'male') {
+                if (bmi < 17.501) {
+                    return "Anorexia";
+                } else if (bmi >= 17.501 && bmi <= 20.70) {
+                    return "Underweight";
+                } else if (bmi >= 20.71 && bmi <= 26.40) {
+                    return "Ideal Range";
+                } else if (bmi >= 26.41 && bmi <= 27.80) {
+                    return "Marginally Overweight Range";
+                } else if (bmi >= 27.81 && bmi <= 31.10) {
+                    return "Overweight Range";
+                } else {
+                    return "Very Overweight or Obese Range";
+                }
+            } else { 
+                if (bmi < 17.50) {
+                    return "Anorexia";
+                } else if (bmi >= 17.51 && bmi <= 19.10) {
+                    return "Underweight";
+                } else if (bmi >= 19.11 && bmi <= 25.80) {
+                    return "Ideal Range";
+                } else if (bmi >= 25.81 && bmi <= 27.30) {
+                    return "Marginally Overweight Range";
+                } else if (bmi >= 27.31 && bmi <= 32.30) {
+                    return "Overweight Range";
+                } else {
+                    return "Very Overweight or Obese Range";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

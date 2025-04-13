@@ -1,0 +1,66 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url('./joyful-dog-running-stockcake.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #a1b2c3; /* was #333 */
+}
+.rainbow {
+  font-size: 3rem;
+  font-weight: bold;
+  background: linear-gradient(to right, #c2a1d1, #bca7ed, #f4a1b2, #a3f2b4, #abd123, #ff99dd, #90ccee);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbowAnimation 3s linear infinite;
+}
+
+@keyframes rainbowAnimation {
+  0% { background-position: 0%; }
+  100% { background-position: 100%; }
+}
+.description {
+  margin: 20px auto;
+  padding: 10px;
+  column-count: 2;
+  column-gap: 30px;
+  line-height: 30pt;
+  max-width: 800px;
+  color: #ab45cd; /* was #333 */
+}
+.svg-container {
+  margin-top: 50px;
+  position: relative;
+  height: 200px;
+}
+#ball {
+  animation: playWithBall 5s infinite;
+}
+@keyframes playWithBall {
+  0% {
+      transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+      transform: translate(100px, 50px) rotate(45deg) skew(10deg, 10deg);
+  }
+  50% {
+      transform: translate(200px, 0) rotate(90deg) skew(0deg, 0deg);
+  }
+  75% {
+      transform: translate(100px, -50px) rotate(135deg) skew(-10deg, -10deg);
+  }
+  100% {
+      transform: translate(0, 0) rotate(180deg);
+  }
+}
+circle {
+  fill: #d91338; /* was red */
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Temperature Analysis</title>
+</head>
+<body>
+    <h1>Temperature Analysis of New York City</h1>
+    <div id="result"></div>
+
+    <script>
+        const temperatures = [55, 62, 68, 74, 59, 45, 41, 58, 60, 67, 65, 78, 82, 88, 91, 92, 90, 93, 87, 80, 78, 79, 72, 68, 61, 59, 55, 65];
+        let hotDays=0;
+        let pleasantDays = 0;
+        let coldDays = 0;
+
+        function categorizeTemperature(temp) {
+            if (temp >= 85) return "HOT";
+            if (temp >= 60) return "PLEASANT";
+            return "COLD";
+        }
+
+        let tableHTML = "<table border='1' cellspacing='0' cellpadding='5'><tr><th>Temperature (°F)</th><th>Category</th></tr>";
+
+        temperatures.forEach(temp => {
+            const category = categorizeTemperature(temp);
+            tableHTML += `<tr><td>${temp}</td><td>${category}</td></tr>`;
+            
+            if (category === "HOT") hotDays++;
+            else if (category === "PLEASANT") pleasantDays++;
+            else coldDays++;
+        });
+
+        tableHTML += "</table>";
+
+        document.getElementById("result").innerHTML = `
+            <h2>Summary</h2>
+            <p>HOT days: ${hotDays}</p>
+            <p>PLEASANT days: ${pleasantDays}</p>
+            <p>COLD days: ${coldDays}</p>
+            ${tableHTML}
+        `;
+    </script>
+</body>
+</html>

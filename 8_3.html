@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Confirmation</title>
+    <script>
+        function confirmStudent() {
+            let regNumber = prompt("Please enter your registration number:");
+            let isStudent = confirm("Are you a student?");
+
+            if (isStudent) {
+                alert("Thank you, " + regNumber + ". You are confirmed as a student.");
+            } else {
+                alert("Thank you, " + regNumber + ". You are not confirmed as a student.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <button onclick="confirmStudent()">Confirm Student</button>
+</body>
+</html>

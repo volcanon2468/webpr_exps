@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plotly Charts</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        .chart-container {
+            width: 45%;
+            display: inline-block;
+            margin: 10px;
+        }
+        body {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Dynamic Charts using Plotly.js</h2>
+    <div class="chart-container" id="barChart"></div>
+    <div class="chart-container" id="lineChart"></div>
+    <div class="chart-container" id="pieChart"></div>
+    <div class="chart-container" id="donutChart"></div>
+
+    <script>
+        function drawBarChart() {
+            let trace = {
+                x: ['A', 'B', 'C', 'D', 'E'],
+                y: [10, 15, 7, 12, 18],
+                type: 'bar',
+                marker: { color: ['red', 'blue', 'green', 'purple', 'orange'] }
+            };
+            let layout = { title: 'Bar Chart', xaxis: { title: 'Categories' }, yaxis: { title: 'Values' } };
+            Plotly.newPlot('barChart', [trace], layout);
+        }
+
+        function drawLineChart() {
+            let trace = {
+                x: [1, 2, 3, 4, 5],
+                y: [5, 10, 8, 15, 12],
+                type: 'scatter',
+                mode: 'lines+markers',
+                marker: { color: 'blue' }
+            };
+            let layout = { title: 'Line Chart', xaxis: { title: 'Time' }, yaxis: { title: 'Values' } };
+            Plotly.newPlot('lineChart', [trace], layout);
+        }
+
+        function drawPieChart() {
+            let trace = {
+                labels: ['Apple', 'Banana', 'Cherry', 'Date'],
+                values: [10, 20, 30, 40],
+                type: 'pie'
+            };
+            let layout = { title: 'Pie Chart' };
+            Plotly.newPlot('pieChart', [trace], layout);
+        }
+
+        function drawDonutChart() {
+            let trace = {
+                labels: ['Red', 'Blue', 'Green', 'Yellow'],
+                values: [25, 35, 20, 20],
+                type: 'pie',
+                hole: 0.4
+            };
+            let layout = { title: 'Donut Chart' };
+            Plotly.newPlot('donutChart', [trace], layout);
+        }
+
+        drawBarChart();
+        drawLineChart();
+        drawPieChart();
+        drawDonutChart();
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <title>Patient Data</title>
+</head>
+<body>
+  <h1>Patient Data Management</h1>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>P-Id</th>
+        <th>Name</th>
+        <th>Age</th>
+      </tr>
+    </thead>
+    <tbody id="patient-table">
+    </tbody>
+  </table>
+
+  <h2>Actions</h2>
+  <button onclick="sortPatients()">Sort by Age (Descending)</button>
+  <button onclick="checkPatient()">Check P-Id</button>
+  <button onclick="filterPatients()">Filter by Age Range</button>
+
+  <div id="output"></div>
+
+  <script>
+    const patients = [
+      { id: 1, name: 'Alen', age: 39 },
+      { id: 2, name: 'Deena', age: 47 },
+      { id: 3, name: 'Diana', age: 21 },
+      { id: 4, name: 'Jack', age: 54 },
+      { id: 5, name: 'Jain', age: 23 },
+      { id: 6, name: 'Kelvin', age: 61 },
+      { id: 7, name: 'Louis', age: 69 },
+      { id: 8, name: 'Rex', age: 49 }
+    ];
+
+    function displayTable(data) {
+      const table = document.getElementById('patient-table');
+      table.innerHTML = '';
+      data.forEach(patient => {
+        table.innerHTML += `
+          <tr>
+            <td>${patient.id}</td>
+            <td>${patient.name}</td>
+            <td>${patient.age}</td>
+          </tr>
+        `;
+      });
+    }
+
+    function sortPatients() {
+      const sorted = [...patients].sort((a, b) => b.age - a.age);
+      displayTable(sorted);
+      document.getElementById('output').textContent = 'Patients sorted by descending age.';
+    }
+
+    function checkPatient() {
+      const pId = prompt('Enter P-Id to check:');
+      const exists = patients.some(patient => patient.id === parseInt(pId));
+      document.getElementById('output').textContent = exists
+        ? `P-Id ${pId} is present in the list.`
+        : `P-Id ${pId} is not present in the list.`;
+    }
+
+    function filterPatients() {
+      const minAge = prompt('Enter minimum age:');
+      const maxAge = prompt('Enter maximum age:');
+      const filtered = patients.filter(
+        patient => patient.age >= parseInt(minAge) && patient.age <= parseInt(maxAge)
+      );
+      displayTable(filtered);
+      document.getElementById('output').textContent = 
+        `Patients filtered by age range ${minAge}-${maxAge}.`;
+    }
+
+    displayTable(patients);
+  </script>
+</body>
+</html>

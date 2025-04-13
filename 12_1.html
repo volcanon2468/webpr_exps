@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Scene</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="600" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+        let boatX = 270;
+        let direction = 1;
+
+        function drawScene() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.beginPath();
+            ctx.arc(500, 70, 40, 0, Math.PI * 2);
+            ctx.fillStyle = "#daf105"; // was yellow
+            ctx.fill();
+            ctx.closePath();
+            for (let i = 0; i < 12; i++) {
+                let angle = (i * Math.PI) / 6;
+                let x1 = 500 + Math.cos(angle) * 50;
+                let y1 = 70 + Math.sin(angle) * 50;
+                let x2 = 500 + Math.cos(angle) * 60;
+                let y2 = 70 + Math.sin(angle) * 60;
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.strokeStyle = "#ccee22"; // was yellow
+                ctx.stroke();
+            }
+
+            ctx.beginPath();
+            ctx.ellipse(300, 250, 100, 50, 0, 0, Math.PI * 2);
+            ctx.fillStyle = "#88eeff"; // was lightblue
+            ctx.fill();
+            ctx.strokeStyle = "#2233ff"; // was blue
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(boatX, 250);
+            ctx.lineTo(boatX + 60, 250);
+            ctx.lineTo(boatX + 50, 260);
+            ctx.lineTo(boatX + 10, 260);
+            ctx.closePath();
+            ctx.fillStyle = "#582d07"; // was brown
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = "#ff7423"; // was orange
+            ctx.fillRect(100, 200, 80, 80);
+            ctx.fillStyle = "red";
+            ctx.beginPath();
+            ctx.moveTo(100, 200);
+            ctx.lineTo(140, 160);
+            ctx.lineTo(180, 200);
+            ctx.closePath();
+            ctx.fill();
+            ctx.fillStyle = "#582d07"; // was brown
+            ctx.fillRect(130, 250, 20, 30);
+            ctx.fillStyle = "#2233ff"; // was blue
+            ctx.fillRect(110, 220, 15, 15);
+
+            ctx.beginPath();
+            ctx.arc(400, 300, 15, 0, Math.PI * 2);
+            ctx.fillStyle = "#daf105"; // was yellow
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(420, 310, 25, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "black";
+            ctx.beginPath();
+            ctx.arc(408, 296, 3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "#ff7423"; // was orange
+            ctx.beginPath();
+            ctx.moveTo(390, 310);
+            ctx.lineTo(380, 315);
+            ctx.lineTo(390, 320);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.fillStyle = "green";
+            ctx.fillRect(500, 280, 5, 40);
+            ctx.beginPath();
+            ctx.ellipse(495, 300, 10, 5, Math.PI / 4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.ellipse(510, 300, 10, 5, -Math.PI / 4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "#ff45cc"; // was pink
+            for (let i = 0; i < 6; i++) {
+                let angle = (i * Math.PI) / 3;
+                ctx.beginPath();
+                ctx.ellipse(505 + Math.cos(angle) * 15, 275 + Math.sin(angle) * 15, 10, 15, 0, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.fillStyle = "#daf105"; // was yellow
+            ctx.beginPath();
+            ctx.arc(505, 275, 8, 0, Math.PI * 2);
+            ctx.fill();
+
+            const stones = [
+                { x: 80, y: 310 },
+                { x: 90, y: 315 },
+                { x: 100, y: 310 },
+                { x: 450, y: 320 },
+                { x: 460, y: 325 },
+                { x: 470, y: 320 }
+            ];
+            stones.forEach(stone => {
+                ctx.beginPath();
+                ctx.arc(stone.x, stone.y, 8, 0, Math.PI * 2);
+                ctx.fillStyle = "#777777"; // was gray
+                ctx.fill();
+                ctx.stroke();
+            });
+        }
+
+        function animateBoat() {
+            if (boatX <= 250 || boatX >= 290) direction *= -1;
+            boatX += direction * 1;
+            drawScene();
+            requestAnimationFrame(animateBoat);
+        }
+
+        animateBoat();
+    </script>
+</body>
+</html>

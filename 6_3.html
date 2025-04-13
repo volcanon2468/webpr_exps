@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Favorite Singer</title>
+  <style>
+    .photo {
+      width: 150px;
+      height: 150px;
+      border: 2px solid #bb5533;
+      border-radius: 50%;
+      display: block;
+      margin: 20px auto;
+    }
+    .title {
+      text-align: center;
+      font-size: 16px;
+      color: #1122aa;
+      animation: colorChange 4s infinite, fontChange 4s infinite;
+    }
+    @keyframes colorChange {
+      0% { color: #cc7788; } 
+      50% { color: #7788cc; }
+      100% { color: #cc7788; }
+    }
+    @keyframes fontChange {
+      0% { font-size: 16px; }
+      50% { font-size: 20px; }
+      100% { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <img src="./Apple-Music-Live-Ed-Sheeran-with-guitar.jpg" alt="Favorite Singer" class="photo">
+    <div class="title">My Favorite Singer</div>
+  </div>
+</body>
+</html>

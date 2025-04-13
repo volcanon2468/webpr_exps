@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grocery Order Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e0e5d3;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      background-color: #a3b09a;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 500px;
+      margin: auto;
+      color: #333;
+    }
+    .product {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .product img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    input[type="text"], input[type="number"], input[type="email"] {
+      padding: 5px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 100%;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #856f56;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #6b5b47;
+    }
+  </style>
+</head>
+<body>
+  <h1>Grocery Order Form</h1>
+  <form id="order-form">
+    <label>Customer Name:</label>
+    <input type="text" name="customerName" required>
+    
+    <label>Phone Number:</label>
+    <input type="text" name="phone" required>
+    
+    <label>Email:</label>
+    <input type="email" name="email" required>
+    
+    <h3>Products</h3>
+    <div class="product">
+      <img src="apple.png" alt="Apple">
+      <label>
+        <input type="checkbox" name="product" value="Apple - $10">
+        Apple ($10 per kg)
+      </label>
+      <input type="number" name="appleQty" placeholder="kg" min="1">
+    </div>
+    <div class="product">
+      <img src="banana.png" alt="Banana">
+      <label>
+        <input type="checkbox" name="product" value="Banana - $5">
+        Banana ($5 per kg)
+      </label>
+      <input type="number" name="bananaQty" placeholder="kg" min="1">
+    </div>
+    <div class="product">
+      <img src="avocado.png" alt="Avocado">
+      <label>
+        <input type="checkbox" name="product" value="Avocado - $7">
+        Avocado ($7 per kg)
+      </label>
+      <input type="number" name="avocadoQty" placeholder="kg" min="1">
+    </div>
+    
+    <button type="button" onclick="submitForm()">Submit</button>
+  </form>
+
+  <script>
+    function submitForm() {
+      const form = document.getElementById('order-form');
+      const formData = new FormData(form);
+      const customerName = formData.get('customerName');
+      const phone = formData.get('phone');
+      const email = formData.get('email');
+      const products = [];
+      const quantities = {
+        Apple: formData.get('appleQty'),
+        Banana: formData.get('bananaQty'),
+        Avocado: formData.get('avocadoQty')
+      };
+
+      formData.getAll('product').forEach(product => {
+        const [name] = product.split(' - ');
+        const qty = quantities[name];
+        if (qty) {
+          products.push(`${product} - ${qty} kg`);
+        }
+      });
+
+      const receiptData = { customerName, phone, email, products };
+      localStorage.setItem('receiptData', JSON.stringify(receiptData));
+      window.location.href = '10-3-1.html';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Listeners Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 300px;
+            height: 100px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Stopwatch</h2>
+        <p id="display">00:00:00</p>
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+        <button id="reset">Reset</button>
+    </div>
+
+    <div class="container">
+        <h2>Age Calculator</h2>
+        <label for="dob">Enter Date of Birth:</label>
+        <input type="date" id="dob">
+        <p id="age"></p>
+    </div>
+
+    <div class="container">
+        <h2>Character Counter</h2>
+        <textarea id="textarea"></textarea>
+        <p>Characters: <span id="charCount">0</span></p>
+    </div>
+
+    <script>
+        let startTime, updatedTime, difference, timerInterval;
+        let running = false;
+
+        function startTimer() {
+            if (!running) {
+                startTime = new Date().getTime() - (difference || 0);
+                timerInterval = setInterval(updateDisplay, 100);
+                running = true;
+            }
+        }
+
+        function stopTimer() {
+            if (running) {
+                clearInterval(timerInterval);
+                difference = new Date().getTime() - startTime;
+                running = false;
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            running = false;
+            difference = 0;
+            document.getElementById("display").textContent = "00:00:00";
+        }
+
+        function updateDisplay() {
+            let now = new Date().getTime();
+            difference = now - startTime;
+            let hours = Math.floor((difference / 3600000) % 24);
+            let minutes = Math.floor((difference / 60000) % 60);
+            let seconds = Math.floor((difference / 1000) % 60);
+            document.getElementById("display").textContent =
+                (hours < 10 ? "0" : "") + hours + ":" +
+                (minutes < 10 ? "0" : "") + minutes + ":" +
+                (seconds < 10 ? "0" : "") + seconds;
+        }
+
+        document.getElementById("start").addEventListener("click", startTimer);
+        document.getElementById("stop").addEventListener("click", stopTimer);
+        document.getElementById("reset").addEventListener("click", resetTimer);
+
+        document.getElementById("dob").addEventListener("mouseover", function () {
+            let dob = new Date(this.value);
+            let today = new Date();
+            let age = today.getFullYear() - dob.getFullYear();
+            let monthDiff = today.getMonth() - dob.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+            document.getElementById("age").textContent = "Age: " + (isNaN(age) ? "" : age);
+        });
+
+        document.getElementById("textarea").addEventListener("input", function () {
+            document.getElementById("charCount").textContent = this.value.length;
+        });
+    </script>
+
+</body>
+</html>

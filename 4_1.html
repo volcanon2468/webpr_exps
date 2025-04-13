@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        fieldset {
+            border: 2px solid #b2c1d3;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        legend {
+            font-weight: bold;
+            padding: 0 10px;
+        }
+
+        label, input, textarea, select {
+            display: block;
+            margin: 5px 0;
+        }
+
+        input[type="radio"], 
+        input[type="checkbox"] {
+            display: inline-block;
+        }
+        .button-group{
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        input[type="submit"], 
+        input[type="reset"] {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <form>
+        <fieldset>
+            <legend>Login</legend>
+            <label for="username">Username*</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password*</label>
+            <input type="password" id="password" name="password" required>
+        </fieldset>
+
+        <fieldset>
+            <legend>Gender</legend>
+            <label>Gender*</label>
+            <input type="radio" id="male" name="gender" value="Male"> Male
+            <input type="radio" id="female" name="gender" value="Female"> Female
+        </fieldset>
+
+        <fieldset>
+            <legend>Programming Skills</legend>
+            <label>Programming Skill</label>
+            <input type="checkbox" id="java" name="skill" value="Java">Java
+            <input type="checkbox" id="cpp" name="skill" value="C++">C++
+            <input type="checkbox" id="csharp" name="skill" value="C#">C#
+        </fieldset>
+
+        <fieldset>
+            <legend>Fruit Selection</legend>
+            <label for="fruit">Choose a fruit:</label>
+            <select id="fruit" name="fruit">
+                <optgroup label="Pome">
+                    <option>Apples</option>
+                    <option>Pears</option>
+                </optgroup>
+                <optgroup label="Citrus">
+                    <option>Oranges</option>
+                    <option>Grapefruits</option>
+                    <option>Mandarins</option>
+                    <option>Limes</option>
+                </optgroup>
+                <optgroup label="Stone">
+                    <option>Nectarines</option>
+                    <option>Apricots</option>
+                    <option>Peaches</option>
+                    <option>Plums</option>
+                </optgroup>
+                <optgroup label="Exotic">
+                    <option>Bananas</option>
+                    <option>Mangoes</option>
+                </optgroup>
+                <optgroup label="Berries">
+                    <option>Strawberries</option>
+                    <option>Raspberries</option>
+                    <option>Blueberries</option>
+                    <option>Kiwifruit</option>
+                    <option>Passionfruit</option>
+                </optgroup>
+                <optgroup label="Melons">
+                    <option>Watermelons</option>
+                    <option>Rock-melons</option>
+                    <option>Honeydew melons</option>
+                </optgroup>
+            </select>
+        </fieldset>
+
+        <fieldset>
+            <legend>Comments</legend>
+            <textarea rows="4" cols="50" placeholder="Enter your comment here"></textarea>
+        </fieldset>
+
+        <div class="button-group">
+        <input type="submit" value="SEND">
+        <input type="reset" value="RESET">
+        </div>
+    </form>
+</body>
+</html>

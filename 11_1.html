@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table & Events</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+            padding: 10px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .remove-btn {
+            margin-left: 10px;
+            background-color: #bada55;
+            color: #123456;
+            border: none;
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+        .remove-btn:hover {
+            background-color: #abcdef;
+        }
+    </style>
+</head>
+<body>
+    <h2>Dynamic Table</h2>
+    <table id="dynamicTable"></table>
+    <br>
+    
+    <h2>Button & Textbox Events</h2>
+    <div id="elementsContainer"></div>
+    <br>
+    
+    <h2>Double Click to Add List Item</h2>
+    <input type="text" id="listInput">
+    <button id="addButton">Add Item</button>
+    <ul id="itemList"></ul>
+    <br>
+    
+    <h2>Keypress Counter</h2>
+    <input type="text" id="keyInput" placeholder="Type something...">
+    <input type="text" id="keyCounter" readonly>
+    
+    <script>
+        // Create dynamic 3x3 table
+        function createTable() {
+            const table = document.getElementById("dynamicTable");
+            for (let i = 0; i < 3; i++) {
+                const row = table.insertRow();
+                for (let j = 0; j < 3; j++) {
+                    const cell = row.insertCell();
+                    cell.innerText = `Row ${i + 1} Col ${j + 1}`;
+                }
+            }
+        }
+
+        function createElements() {
+            const container = document.getElementById("elementsContainer");
+
+            const button = document.createElement("button");
+            button.innerText = "Hover Over Me";
+            button.style.backgroundColor = "red";
+            button.onmouseover = () => button.style.backgroundColor = "green";
+            container.appendChild(button);
+
+            const textbox = document.createElement("input");
+            textbox.type = "text";
+            textbox.style.backgroundColor = "green";
+            textbox.onfocus = () => textbox.style.backgroundColor = "yellow";
+            textbox.onchange = () => alert("Hello! Welcome!");
+            container.appendChild(textbox);
+        }
+
+        document.getElementById("addButton").ondblclick = function () {
+            const inputText = document.getElementById("listInput").value.trim();
+            if (inputText !== "") {
+                const li = document.createElement("li");
+                
+                const span = document.createElement("span");
+                span.innerText = inputText;
+                li.appendChild(span);
+
+                const removeBtn = document.createElement("button");
+                removeBtn.innerText = "Remove";
+                removeBtn.className = "remove-btn";
+                removeBtn.onclick = () => li.remove();
+                li.appendChild(removeBtn);
+
+                document.getElementById("itemList").appendChild(li);
+                document.getElementById("listInput").value = "";
+            }
+        };
+
+        let keyCount = 0;
+        document.getElementById("keyInput").onkeypress = function () {
+            keyCount++;
+            document.getElementById("keyCounter").value = keyCount;
+        };
+
+        createTable();
+        createElements();
+    </script>
+</body>
+</html>
