@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio and Video Player</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .player {
+            margin-bottom: 20px;
+        }
+        .canvas {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="player">
+            <h3>Audio</h3>
+            <audio controls>
+                <source src="your_audio_file.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <div class="player">
+            <h3>Video</h3>
+            <video controls>
+                <source src="your_video_file.mp4" type="video/mp4">
+                Your browser does not support the video element.
+            </video>
+        </div>
+        <div class="canvas">
+            <h3>Canvas</h3>
+            <canvas id="myCanvas" width="400" height="300"></canvas>
+    <script>
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+        const bgGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        bgGradient.addColorStop(0, "#3c0212");
+        bgGradient.addColorStop(1, "#d10c0c");
+        ctx.fillStyle = bgGradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#C0C0C0";
+        ctx.fillRect(80, 180, 240, 20);
+        ctx.fillStyle = "#333";
+        ctx.fillRect(100, 60, 200, 120);
+        ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
+        ctx.beginPath();
+        ctx.moveTo(200, 60);
+        ctx.lineTo(300, 60);
+        ctx.lineTo(200, 180);
+        ctx.closePath();
+        ctx.fill();
+        ctx.fillStyle = "rgba(255, 215, 0, 0.5)";
+        ctx.beginPath();
+        ctx.arc(180, 120, 50, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = "rgba(255, 180, 0, 0.5)";
+        ctx.beginPath();
+        ctx.arc(220, 120, 50, 0, Math.PI * 2);
+        ctx.fill();
+    </script>
+        </div>
+    </div>
+</body>
+</html>
